@@ -1,0 +1,32 @@
+{
+  "name": "RxES7",
+  "version": "0.0.1",
+  "main": "build/Rx.js",
+
+  "scripts": {
+    "build": "npm run build-babel && npm run build-export-flow",
+    "build-babel": "babel src --ignore __tests__ --out-dir build",
+    "build-export-flow": "find src -not \\( -path '*__tests__*' -prune \\) -name \\*js | while read filename; do cp $filename build/${filename##src/}.flow; done",
+    "test": "jest --verbose"
+  },
+
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-cli": "^6.3.26",
+    "babel-jest": "^6.0.1",
+    "babel-plugin-syntax-flow": "^6.3.13",
+    "babel-plugin-transform-flow-strip-types": "^6.4.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "jest-cli": "^0.8.2"
+  },
+
+  "babel": {
+    "presets": ["es2015", "stage-0"],
+    "plugins": ["syntax-flow", "transform-flow-strip-types"]
+  },
+
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest"
+  }
+}
